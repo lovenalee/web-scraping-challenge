@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Templates 101</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+
+<body class='text-white'>
+  <div class="container">
+
+    <!-- Jumbotron -->
+    <div class="jumbotron text-center">
+      <h1>Mission to Mars</h1>
+      <a class="btn btn-lg text-white" href="/scrape" role="button">Scrape New Data</a>
+    </div>
+
+    <!---News scraping-->
+ 
+    <div class="container">
+      <h2> Latest Mars News</h2>
+      <h4 >{{mars.news_title}}</h4>
+      <p>{{mars.news_p}}</p>
+    </div>
+
+    <!---Featured Image-->
+    <div class="container">
+      <div class='row'>
+        <div class="col-lg-8 col-md-8 col-sm-6 col-xm-12">
+          <h3 >Featured Mars Image</h3>
+          <img src="{{mars.featured_image_url}}" style="max-width:100%;" alt="mars image">
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xm-12">
+          <div>
+            <h3>Mars Facts</h3>
+            <table>{{mars.table_html}}</table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!---CONTAINTER CLOSE-->
+
+
+
+    <br>
+    <h1>Mars Hemispheres</h1>
+
+  </div>
+  <!---body->container closed-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <h3> {{data.hemisphere_image_urls[0]["title"]}} </h3>
+            <img src={{data.image_dic[0]}} />
+          </div>
+          <div class="col-md-12">
+            <h3> {{data.hemisphere_image_urls[1]["title"]}} </h3>
+            <img src={{data.image_dic[1]["img_url"]}} style="max-width:100%;
+             height:auto;" />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <h3> {{data.hemisphere_image_urls[2]["title"]}} </h3>
+            <img src={{data.image_dic[2]["img_url"]}} style="max-width:100%;
+             height:auto;" />
+          </div>
+          <div class="col-md-12">
+            <h3> {{data.hemisphere_image_urls[3]["title"]}} </h3>
+            <img src={{data.image_dic[3]["img_url"]}} style="max-width:100%;
+             height:auto;" />
+          </div>
+        </div>
+      </div>
+    
+    </div>
+</body>
+
+</html>
