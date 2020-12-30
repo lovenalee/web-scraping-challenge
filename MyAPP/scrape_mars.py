@@ -6,16 +6,15 @@ import numpy as np
 import pandas as pd
 from splinter import Browser
 from bs4 import BeautifulSoup as bs
-import time
 import requests
-import re
+
 
 def init_browser():
     executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
     return Browser('chrome', **executable_path, headless=False)
     
 
-def scrape():
+def scrape_info():
 
     browser = init_browser()
 
@@ -32,12 +31,7 @@ def scrape():
     news_title = soup.find('div', class_='rollover_description_inner').text
     news_p = soup.find('div', class_='article_teaser_body').text
 
-    # # Display scrapped data 
-    print(f'news_title: {news_title}')
-    print(f'news_p: {news_p}')
 
-    mars_dict['news_titles'] = news_title
-    mars_dict['news_p'] = news_p
 
     # ## JPL Mars Space Images - Featured Image
     # Visit the url for JPL Featured Space Image at https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars
@@ -47,7 +41,6 @@ def scrape():
     browser.visit(url2)
     html_image = browser.html
     soup = bs(html_image, "html.parser") 
-    print(soup.prettify())
 
 
     # Make sure to find the image url to the full size .jpg image.
@@ -56,9 +49,7 @@ def scrape():
     # Make sure to save a complete url string for this image.
     base_url = 'https://www.jpl.nasa.gov'
     featured_image_url = base_url + image_url
-    print(featured_image_url)
-
-    mars_dict['featured_image_url'] = featured_image_url
+ 
 
     # ## Mars Facts
     # Visit the Mars Facts webpageand use Pandas to scrape the table containing facts about the planet including Diameter, Mass, etc.
@@ -69,12 +60,10 @@ def scrape():
     table_df = tables[0]
     table_df.columns = ['Facts', 'Value']
     table_df['Facts'] = table_df['Facts'].str.replace(':', '')
-    table_df
-
 
     # Use Pandas to convert the data to a HTML table string.
     table_html = table_df.to_html()
-    print(table_html)
+   
 
     mars_dict['table_html']=table_html
     # ## Mars Hemispheres
@@ -89,9 +78,7 @@ def scrape():
 
     # You will need to click each of the links to the hemispheres in order to find the image url to the full resolution image.
     items = soup.find_all('div', class_='item')
-    items
-
-
+ 
     # Save both the image url string for the full resolution hemisphere image, 
     # and the Hemisphere title containing the hemisphere name. 
     titles = []
@@ -99,10 +86,6 @@ def scrape():
     for item in items:
         titles.append(item.find('h3').text.strip())
         urls.append(base_url + item.find('a')['href'])
-    print(urls)
-    print(titles)
-
-
 
     image_urls = []
     for url in urls:
@@ -111,7 +94,7 @@ def scrape():
         soup = bs(html_images, "html.parser") 
         image_url = soup.find("img", class_ = "wide-image")["src"]
         image_urls.append(base_url+image_url)
-    image_urls
+
 
 
 
@@ -124,8 +107,14 @@ def scrape():
         image_dic.append({'title':titles[i],'img_url':image_urls[i]})
 
 
-    mars_dict["image_dic"] = image_dic
-
+    mars_dict = {
+        "news_title": news_title,
+        "news_p": news_p,
+        "featured_image_url": featured_image_url,
+        "fact_table": str(table_html),
+        "hemisphere_images": image_dic
+    }
+    
 
     browser.quit()
     return mars_dict

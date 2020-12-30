@@ -1,6 +1,6 @@
 .button {
     border: none;
-    color: white;
+    color: rgba(255, 255, 255, 0.945);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
@@ -10,4 +10,19 @@
     cursor: pointer;
   }
   
-  .button1 {background-color: #4CAF50;} /* Green */
+  .button1 {background-color: #1a91c0;} /* Green */
+
+
+title{
+    color: rgb(7, 103, 141);
+    text-align: center;
+    text-decoration:rgb(194, 219, 230);
+}
+
+h2{
+    color: rgb(62, 165, 148);
+    font-family: 'Times New Roman', Times, serif;
+    padding: 20px;
+    font-weight: bold;
+    text-align: center;
+}

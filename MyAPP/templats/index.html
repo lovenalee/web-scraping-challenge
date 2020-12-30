@@ -5,21 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Templates 101</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title class="title">Mission to Mars</title>
+  <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 </head>
 
 
-<body class='text-white'>
+<body>
   <div class="container">
 
-    <!-- Jumbotron -->
     <div class="jumbotron text-center">
       <h1>Mission to Mars</h1>
-      <a class="btn btn-lg text-white" href="/scrape" role="button">Scrape New Data</a>
+      <button class="button button1" href="/scrape">Scrape New Data</button>
     </div>
 
-    <!---News scraping-->
  
     <div class="container">
       <h2> Latest Mars News</h2>
@@ -27,7 +26,6 @@
       <p>{{mars.news_p}}</p>
     </div>
 
-    <!---Featured Image-->
     <div class="container">
       <div class='row'>
         <div class="col-lg-8 col-md-8 col-sm-6 col-xm-12">
@@ -44,46 +42,27 @@
       </div>
     </div>
 
-    <!---CONTAINTER CLOSE-->
 
 
 
     <br>
-    <h1>Mars Hemispheres</h1>
+    <h2>Mars Hemispheres</h2>
 
-  </div>
-  <!---body->container closed-->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-12">
-            <h3> {{data.hemisphere_image_urls[0]["title"]}} </h3>
-            <img src={{data.image_dic[0]}} />
+    <div class="row">       
+        {% for hemisphere in mars.hemisphere_images %} 
+          <div class="col-6 border">
+          </br>
+                <div>
+                  <img width="512 px" height="512 px" src="{{ hemisphere.img_url | safe }}">
+                </div>
+
+                <div>
+                  <h4> {{ hemisphere.title | safe }} </h4>  
+                </div>
+        
           </div>
-          <div class="col-md-12">
-            <h3> {{data.hemisphere_image_urls[1]["title"]}} </h3>
-            <img src={{data.image_dic[1]["img_url"]}} style="max-width:100%;
-             height:auto;" />
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-12">
-            <h3> {{data.hemisphere_image_urls[2]["title"]}} </h3>
-            <img src={{data.image_dic[2]["img_url"]}} style="max-width:100%;
-             height:auto;" />
-          </div>
-          <div class="col-md-12">
-            <h3> {{data.hemisphere_image_urls[3]["title"]}} </h3>
-            <img src={{data.image_dic[3]["img_url"]}} style="max-width:100%;
-             height:auto;" />
-          </div>
-        </div>
-      </div>
-    
-    </div>
+        {% endfor %}
+
 </body>
 
 </html>
